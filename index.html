@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ana Chun Apuntes Interfaces para el cuestionario de la Unidad 3</title>
-     <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -13,16 +13,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #333;
-        }
-        nav {
+            min-height: 100vh;
             background-color: #333;
             color: white;
-            padding: 1em;
-            display: flex;
-            justify-content: center;
+            text-align: center;
+        }
+        nav {
             width: 100%;
+            background-color: #444;
+            padding: 1em 0;
         }
         nav ul {
             list-style: none;
@@ -33,17 +32,21 @@
             justify-content: center;
         }
         nav ul li {
-            margin: 0 1em;
+            margin: 0.5em 1em;
         }
         nav ul li a {
             color: white;
             text-decoration: none;
+            padding: 0.5em 1em;
+            display: block;
         }
         nav ul li a:hover {
             text-decoration: underline;
         }
         .content {
             padding: 2em;
+            width: 100%;
+            max-width: 1200px;
         }
         /* Responsive design */
         @media (max-width: 600px) {
@@ -61,12 +64,13 @@
 
     <nav>
         <ul>
-            <li><a href="https://anaa-chun.github.io/ApuntesInterfaces/ApuntesAlejandroProfe.html">Apuntes Notion Alejandro.</a></li>
+            <li><a href="https://anaa-chun.github.io/ApuntesInterfaces/ApuntesAlejandroProfe.html">Apuntes Notion Alejandro</a></li>
             <li><a href="https://anaa-chun.github.io/ApuntesInterfaces/ApuntesClasesDI.pdf">Apuntes de Ana Chun Clase DI</a></li>
-            <li><a href="https://anaa-chun.github.io/ApuntesInterfaces/10PreguntasTestsSacadaApuntesNotionAlejandro.pdf">Cuestionario UD3 Notion Alejandro </a></li>
+            <li><a href="https://anaa-chun.github.io/ApuntesInterfaces/10PreguntasTestsSacadaApuntesNotionAlejandro.pdf">Cuestionario UD3 Notion Alejandro</a></li>
             <li><a href="https://anaa-chun.github.io/ApuntesInterfaces/T2_LinkiaFP.pdf">Linkia FP Unidad 2</a></li>
             <li><a href="https://anaa-chun.github.io/ApuntesInterfaces/T3_LinkiaFP.pdf">Linkia FP Unidad 3</a></li>
         </ul>
     </nav>
+
 </body>
 </html>
