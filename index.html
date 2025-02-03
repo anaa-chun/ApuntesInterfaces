@@ -3,28 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3. CREACIÓN DE COMPONENTES VISUALES</title>
+    <title>Mi Página Web</title>
     <style>
-        /* Estilos anteriores */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        nav {
+            background-color: #333;
+            color: white;
+            padding: 1em;
+            display: flex;
+            justify-content: center;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 0 1em;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        .content {
+            padding: 2em;
+        }
+        /* Responsive design */
+        @media (max-width: 600px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin: 0.5em 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <article id="18fc1017-243e-8070-ad33-f93feba76726" class="page serif">
-        <header>
-            <h1 class="page-title">3. CREACIÓN DE COMPONENTES VISUALES</h1>
-            <p class="page-description"></p>
-        </header>
-        <div class="page-body">
-            <!-- Sección del PDF -->
-            <h2>Documento PDF Incrustado</h2>
-            <iframe src="https://anaa-chun.github.io/a/1.pdf" width="100%" height="600px"></iframe>
 
-            <!-- Resto del contenido -->
-            <p id="18fc1017-243e-81f5-beed-c17c60f1845b" class="">LINK A VÍDEO TUTORIAL DLL:</p>
-            <p id="18fc1017-243e-81c2-be66-e989b0722766" class=""><a href="https://www.youtube.com/watch?v=6Y63Tg1GDbs">Creating your own DLL files | Visual studio class library</a></p>
-            <hr id="18fc1017-243e-8130-9511-ec93c34070a8"/>
-            <!-- Resto del contenido HTML -->
-        </div>
-    </article>
+    <nav>
+        <ul>
+            <li><a href="#inicio">Apuntes de Alejandro</a></li>
+            <li><a href="#servicios">Mis Apuntes DI</a></li>
+            <li><a href="#sobre-nosotros">Posibles Preguntas de Cuestionario UD3</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+
 </body>
 </html>
