@@ -1,0 +1,1150 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>3. CREACIÓN DE COMPONENTES VISUALES</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="18fc1017-243e-8070-ad33-f93feba76726" class="page serif"><header><h1 class="page-title">3. CREACIÓN DE COMPONENTES VISUALES</h1><p class="page-description"></p></header><div class="page-body"><p id="18fc1017-243e-81f5-beed-c17c60f1845b" class="">LINK A VÍDEO TUTORIAL DLL:</p><p id="18fc1017-243e-81c2-be66-e989b0722766" class=""><a href="https://www.youtube.com/watch?v=6Y63Tg1GDbs">Creating your own DLL files | Visual studio class library</a></p><hr id="18fc1017-243e-8130-9511-ec93c34070a8"/><h3 id="18fc1017-243e-819c-b6e0-dd1305326d87" class=""><strong>1. Creación de nuevos componentes visuales</strong></h3><ul id="18fc1017-243e-81c0-b42a-ef20f15e5362" class="bulleted-list"><li style="list-style-type:disc">Los componentes personalizados se desarrollan en proyectos tipo <strong>Biblioteca de controles de Windows Forms</strong>, que generan archivos <code>.dll</code> en lugar de ejecutables <code>.exe</code>.</li></ul><ul id="18fc1017-243e-8113-8488-eeb966ec26bd" class="bulleted-list"><li style="list-style-type:disc">Estos controles pueden usarse en diferentes proyectos, lo que permite la reutilización.</li></ul><h3 id="18fc1017-243e-81d1-9be9-edcb94469a51" class="">Ejemplo:</h3><p id="18fc1017-243e-81c9-9692-f54f8d3b1e38" class="">Creación de un control para calcular los días entre dos fechas usando dos <code>DateTimePicker</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-81d2-b055-cf61ce760b9c" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">private void fecha_inicio_ValueChanged(object sender, EventArgs e)
+{
+    if (fecha_fin.Value &lt;= fecha_inicio.Value)
+    {
+        fecha_fin.Value = fecha_inicio.Value.AddDays(1);
+    }
+}
+
+private void fecha_fin_ValueChanged(object sender, EventArgs e)
+{
+    if (fecha_inicio.Value &gt;= fecha_fin.Value)
+    {
+        fecha_inicio.Value = fecha_fin.Value.AddDays(-1);
+    }
+}
+</code></pre><hr id="18fc1017-243e-81c5-8771-f958bf1e82bc"/><h3 id="18fc1017-243e-8187-abf2-d55855cd4c86" class=""><strong>2. Propiedades personalizadas</strong></h3><p id="18fc1017-243e-8190-a2ff-c6fee04e29d1" class="">Se pueden agregar propiedades para configurar aspectos del control. Estas son implementadas mediante <code>get</code> y <code>set</code>.</p><h3 id="18fc1017-243e-8139-8ef1-d71773fefa75" class="">Ejemplo:</h3><p id="18fc1017-243e-8114-aa8a-d45b21218292" class="">Propiedad para cambiar el texto de las etiquetas:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-8109-ab96-c302ba905e3d" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public string Texto_Inicio
+{
+    get { return etiqueta_inicio.Text; }
+    set { etiqueta_inicio.Text = value; }
+}
+</code></pre><p id="18fc1017-243e-8105-a7b2-f3e68ab0413d" class="">Propiedad de solo lectura para obtener los días entre dos fechas:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-813b-a670-ca47d815b562" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">private int dias = 0;
+
+public int Dias
+{
+    get { return dias; }
+}
+</code></pre><hr id="18fc1017-243e-812c-8924-dfec9a87d68a"/><h3 id="18fc1017-243e-817d-91be-fb533e4b686f" class=""><strong>3. Creación de eventos personalizados</strong></h3><p id="18fc1017-243e-81ab-8f2d-cd98ba680d9c" class="">Los eventos permiten reaccionar a cambios dentro del control.</p><h3 id="18fc1017-243e-818e-be2f-fd5ae18f911c" class="">Ejemplo:</h3><p id="18fc1017-243e-8162-860e-cc389da9c046" class="">Definición de un evento que notifica cuando cambia el número de días:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-81a7-a30b-ff5cdd22ad28" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public delegate void CambioValor(object sender, EventArgs e);
+public event CambioValor CambioDias;
+
+public void Recalcular()
+{
+    TimeSpan tiempo = fecha_fin.Value - fecha_inicio.Value;
+    dias = tiempo.Days;
+
+    CambioDias?.Invoke(this, EventArgs.Empty);
+}
+</code></pre><hr id="18fc1017-243e-811b-84be-d4bfe325c101"/><h3 id="18fc1017-243e-8112-925a-d87ce777a8d7" class=""><strong>4. Controles desde cero</strong></h3><p id="18fc1017-243e-81a5-939d-e0b46d306795" class="">Cuando no se basan en controles existentes, es necesario programar manualmente el dibujo y la interacción con el usuario.</p><h3 id="18fc1017-243e-815f-8ddf-c6c65d1381fc" class="">Ejemplo: Semáforo</h3><p id="18fc1017-243e-813b-9a30-f2bfb33b0328" class="">Control que dibuja un semáforo con tres luces (rojo, amarillo, verde):</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-8104-8374-fc32bd6074f9" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">protected override void OnPaint(PaintEventArgs e)
+{
+    base.OnPaint(e);
+    Graphics g = e.Graphics;
+
+    g.FillEllipse(Brushes.Red, new Rectangle(0, 0, 30, 30));
+    g.FillEllipse(Brushes.Yellow, new Rectangle(0, 35, 30, 30));
+    g.FillEllipse(Brushes.Lime, new Rectangle(0, 70, 30, 30));
+}
+</code></pre><p id="18fc1017-243e-812a-8a5f-db7686932eee" class="">Interacción: Cambiar el color del semáforo al hacer clic:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-8102-a9ff-dff3d86f4529" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">private void Semaforo_MouseClick(object sender, MouseEventArgs e)
+{
+    if (e.Location.Y &lt; this.Width)
+        this.Estado = EstadoSem.Rojo;
+    else if (e.Location.Y &lt; 2 * this.Width)
+        this.Estado = EstadoSem.Amarillo;
+    else
+        this.Estado = EstadoSem.Verde;
+}
+</code></pre><hr id="18fc1017-243e-81c5-8e61-e2e9d5cd056c"/><h3 id="18fc1017-243e-817d-bc15-d42367619de8" class=""><strong>5. Personalización y distribución</strong></h3><ul id="18fc1017-243e-81b1-a61c-d217bb248d8a" class="bulleted-list"><li style="list-style-type:disc">Se pueden agregar iconos personalizados para identificar el control en la barra de herramientas.</li></ul><ul id="18fc1017-243e-8175-b391-d0de51185736" class="bulleted-list"><li style="list-style-type:disc">Es importante incluir los recursos como <strong>incrustados</strong> dentro del <code>.dll</code> generado.</li></ul><h3 id="18fc1017-243e-81b0-8241-ce223d74ddab" class="">Ejemplo:</h3><p id="18fc1017-243e-81a1-a3c8-f510da9497bd" class="">Asociar un icono al control:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-81e8-85e7-d96b411a0f2c" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">[ToolboxBitmap(typeof(semaforo), &quot;semaforo.png&quot;)]
+public partial class semaforo : UserControl
+{
+    // Código del control
+}
+</code></pre><hr id="18fc1017-243e-81e8-9ca0-c525ec8731c0"/><h3 id="18fc1017-243e-8160-b725-f1bf352427a0" class=""><em><strong>PRÁCTICA: control de un potenciómetro</strong></em></h3><p id="18fc1017-243e-81e3-b6b3-f296392a0d2e" class="">Vamos a desarrollar el ejemplo del potenciómetro siguiendo la actividad propuesta. Este control visualizará un valor entre un mínimo y un máximo, iluminando una serie de elementos luminosos (seis verdes, tres amarillos y uno rojo) para representar gráficamente el progreso.</p><h3 id="18fc1017-243e-815f-a54a-c44d2ff7c703" class=""><strong>Código del Potenciómetro</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-815e-a3b5-c5a928cbc322" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class Potenciometro : UserControl
+{
+    private int min = 0;
+    private int max = 100;
+    private int valor = 0;
+    private const int elementos = 10; // Número de luces
+
+    [Description(&quot;Valor mínimo del potenciómetro&quot;), DefaultValue(0)]
+    public int Min
+    {
+        get { return min; }
+        set
+        {
+            if (value &lt; max)
+            {
+                min = value;
+                Invalidate();
+            }
+        }
+    }
+
+    [Description(&quot;Valor máximo del potenciómetro&quot;), DefaultValue(100)]
+    public int Max
+    {
+        get { return max; }
+        set
+        {
+            if (value &gt; min)
+            {
+                max = value;
+                Invalidate();
+            }
+        }
+    }
+
+    [Description(&quot;Valor actual del potenciómetro&quot;), DefaultValue(0)]
+    public int Valor
+    {
+        get { return valor; }
+        set
+        {
+            if (value &gt;= min &amp;&amp; value &lt;= max)
+            {
+                valor = value;
+                Invalidate();
+            }
+        }
+    }
+
+    public Potenciometro()
+    {
+        this.Width = 50;
+        this.Height = 200;
+        this.DoubleBuffered = true;
+    }
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        base.OnPaint(e);
+        Graphics g = e.Graphics;
+
+        int ancho = this.Width - 10; // Margen lateral
+        int altoElemento = (this.Height - 20) / elementos; // Altura de cada luz
+        int margen = 5; // Margen superior e inferior
+
+        // Calcular cuántos elementos encender
+        int encendidos = (int)Math.Round(((double)(valor - min) / (max - min)) * elementos);
+
+        for (int i = 0; i &lt; elementos; i++)
+        {
+            Brush color = Brushes.Gray; // Por defecto, luz apagada
+
+            // Determinar el color según la posición
+            if (i &lt; encendidos)
+            {
+                if (i &lt; 6) color = Brushes.Green; // Primeros 6: verde
+                else if (i &lt; 9) color = Brushes.Yellow; // Siguientes 3: amarillo
+                else color = Brushes.Red; // Último: rojo
+            }
+
+            // Dibujar el rectángulo de la luz
+            g.FillRectangle(color, margen, margen + i * altoElemento, ancho, altoElemento - 2);
+        }
+    }
+}
+</code></pre><hr id="18fc1017-243e-814c-96a1-f70b8afa049b"/><h3 id="18fc1017-243e-81a8-9032-cca6caca27a3" class=""><strong>Explicación del Código</strong></h3><ol type="1" id="18fc1017-243e-8163-94fd-edda0f9de4ff" class="numbered-list" start="1"><li><strong>Propiedades Personalizadas:</strong><ul id="18fc1017-243e-81ee-a6d8-fcfc9fa0c1ca" class="bulleted-list"><li style="list-style-type:disc"><code>Min</code>: Establece el valor mínimo del rango.</li></ul><ul id="18fc1017-243e-8159-ab8b-e5221d1f8e7f" class="bulleted-list"><li style="list-style-type:disc"><code>Max</code>: Establece el valor máximo del rango.</li></ul><ul id="18fc1017-243e-8139-852c-cdfd3fb65005" class="bulleted-list"><li style="list-style-type:disc"><code>Valor</code>: Representa el valor actual, con validación para que esté dentro de los límites (<code>min</code> y <code>max</code>).</li></ul></li></ol><ol type="1" id="18fc1017-243e-8128-aee5-f168c61d5be6" class="numbered-list" start="2"><li><strong>Cálculo del Progreso:</strong><ul id="18fc1017-243e-8169-815a-d564d843022a" class="bulleted-list"><li style="list-style-type:disc">Determina cuántos elementos deben estar encendidos basándose en la relación del <code>valor</code> actual con el rango (<code>min</code> a <code>max</code>).</li></ul></li></ol><ol type="1" id="18fc1017-243e-81e3-a3e4-d60bf763901b" class="numbered-list" start="3"><li><strong>Dibujado del Control:</strong><ul id="18fc1017-243e-81a6-ae53-d19fe96f6cef" class="bulleted-list"><li style="list-style-type:disc">Cada elemento se representa como un rectángulo. Según su posición, se le asigna un color:<ul id="18fc1017-243e-81d9-aed0-c600c528d1b8" class="bulleted-list"><li style="list-style-type:circle"><strong>Verde:</strong> Los primeros 6.</li></ul><ul id="18fc1017-243e-816c-8b02-c6272a009721" class="bulleted-list"><li style="list-style-type:circle"><strong>Amarillo:</strong> Los siguientes 3.</li></ul><ul id="18fc1017-243e-8155-9988-e4849ce59c00" class="bulleted-list"><li style="list-style-type:circle"><strong>Rojo:</strong> El último.</li></ul></li></ul></li></ol><ol type="1" id="18fc1017-243e-813c-9654-f0843ade6e9a" class="numbered-list" start="4"><li><strong>Invalidate:</strong><ul id="18fc1017-243e-81de-8d4e-e2f88580e9c0" class="bulleted-list"><li style="list-style-type:disc">Asegura que el control se redibuje cada vez que cambian las propiedades (<code>Min</code>, <code>Max</code> o <code>Valor</code>).</li></ul></li></ol><hr id="18fc1017-243e-8126-90a1-f30f9de2d2af"/><h3 id="18fc1017-243e-815e-9c36-e5016095529d" class=""><strong>Incorporación al Proyecto</strong></h3><p id="18fc1017-243e-8163-a28a-c18a714f3bff" class="">Para usar este control:</p><ol type="1" id="18fc1017-243e-81ee-b8f5-f412c971b6b3" class="numbered-list" start="1"><li><strong>Compila el control como una biblioteca (</strong><code><strong>.dll</strong></code><strong>).</strong></li></ol><ol type="1" id="18fc1017-243e-81e6-8e0f-e663c1433519" class="numbered-list" start="2"><li><strong>Agrégalo a la barra de herramientas en Visual Studio:</strong><ul id="18fc1017-243e-81b1-9923-de5bf9f9b03c" class="bulleted-list"><li style="list-style-type:disc">Haz clic derecho en la barra de herramientas → &quot;Elegir elementos&quot; → &quot;Examinar&quot; → Selecciona el archivo <code>.dll</code>.</li></ul></li></ol><ol type="1" id="18fc1017-243e-81c8-8a27-e367748ac130" class="numbered-list" start="3"><li><strong>Arrástralo al formulario.</strong></li></ol><hr id="18fc1017-243e-8149-b9c2-e4d933b06d56"/><h3 id="18fc1017-243e-8165-8523-d42c5c170e93" class=""><strong>Prueba del Control</strong></h3><p id="18fc1017-243e-81eb-a780-eabe326e00a6" class="">Ejemplo de uso en un formulario:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-81bf-b84a-d5db507b4f78" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public partial class Form1 : Form
+{
+    public Form1()
+    {
+        InitializeComponent();
+
+        Potenciometro potenciometro = new Potenciometro
+        {
+            Min = 0,
+            Max = 100,
+            Valor = 50,
+            Location = new Point(20, 20)
+        };
+
+        this.Controls.Add(potenciometro);
+
+        // Simular cambios en el valor
+        Timer timer = new Timer { Interval = 500 };
+        timer.Tick += (s, e) =&gt;
+        {
+            potenciometro.Valor = (potenciometro.Valor + 5) % 105;
+        };
+        timer.Start();
+    }
+}
+</code></pre><hr id="18fc1017-243e-817c-9213-c726b2e801e6"/><h3 id="18fc1017-243e-8123-8f9f-d638894e2b68" class=""><strong>Funcionalidades Adicionales</strong></h3><ol type="1" id="18fc1017-243e-8172-8476-d78ab7e40fb7" class="numbered-list" start="1"><li><strong>Evento </strong><code><strong>CambioValor</strong></code><strong>:</strong> Se activará cuando el valor del potenciómetro cambie, notificando a los suscriptores.</li></ol><ol type="1" id="18fc1017-243e-8169-ba15-ca87330fc772" class="numbered-list" start="2"><li><strong>Propiedad </strong><code><strong>Incremento</strong></code><strong>:</strong> Define en cuánto se incrementa o decrementa el valor cuando el usuario interactúa con el control.</li></ol><ol type="1" id="18fc1017-243e-8114-9e3d-e6b0ee1c8ccb" class="numbered-list" start="3"><li><strong>Interacción con el ratón:</strong> Al hacer clic en las luces, se ajustará el valor del potenciómetro.</li></ol><hr id="18fc1017-243e-818a-9e7e-c5543c2f224c"/><h3 id="18fc1017-243e-8105-811f-d365bb39e6fe" class=""><strong>Código del Potenciómetro Mejorado</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-8132-9912-fdc455487ac0" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+public class Potenciometro : UserControl
+{
+    private int min = 0;
+    private int max = 100;
+    private int valor = 0;
+    private int incremento = 10;
+    private const int elementos = 10;
+
+    [Description(&quot;Valor mínimo del potenciómetro&quot;), DefaultValue(0)]
+    public int Min
+    {
+        get { return min; }
+        set
+        {
+            if (value &lt; max)
+            {
+                min = value;
+                if (valor &lt; min) Valor = min;
+                Invalidate();
+            }
+        }
+    }
+
+    [Description(&quot;Valor máximo del potenciómetro&quot;), DefaultValue(100)]
+    public int Max
+    {
+        get { return max; }
+        set
+        {
+            if (value &gt; min)
+            {
+                max = value;
+                if (valor &gt; max) Valor = max;
+                Invalidate();
+            }
+        }
+    }
+
+    [Description(&quot;Valor actual del potenciómetro&quot;), DefaultValue(0)]
+    public int Valor
+    {
+        get { return valor; }
+        set
+        {
+            if (value &gt;= min &amp;&amp; value &lt;= max)
+            {
+                valor = value;
+                Invalidate();
+                OnCambioValor(new EventArgs());
+            }
+        }
+    }
+
+    [Description(&quot;Incremento al interactuar con el control&quot;), DefaultValue(10)]
+    public int Incremento
+    {
+        get { return incremento; }
+        set
+        {
+            if (value &gt; 0) incremento = value;
+        }
+    }
+
+    // Evento personalizado
+    public event EventHandler CambioValor;
+
+    protected virtual void OnCambioValor(EventArgs e)
+    {
+        CambioValor?.Invoke(this, e);
+    }
+
+    public Potenciometro()
+    {
+        this.Width = 50;
+        this.Height = 200;
+        this.DoubleBuffered = true;
+
+        this.MouseClick += Potenciometro_MouseClick;
+    }
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        base.OnPaint(e);
+        Graphics g = e.Graphics;
+
+        int ancho = this.Width - 10;
+        int altoElemento = (this.Height - 20) / elementos;
+        int margen = 5;
+
+        int encendidos = (int)Math.Round(((double)(valor - min) / (max - min)) * elementos);
+
+        for (int i = 0; i &lt; elementos; i++)
+        {
+            Brush color = Brushes.Gray;
+
+            if (i &lt; encendidos)
+            {
+                if (i &lt; 6) color = Brushes.Green;
+                else if (i &lt; 9) color = Brushes.Yellow;
+                else color = Brushes.Red;
+            }
+
+            g.FillRectangle(color, margen, margen + i * altoElemento, ancho, altoElemento - 2);
+        }
+    }
+
+    private void Potenciometro_MouseClick(object sender, MouseEventArgs e)
+    {
+        int altoElemento = (this.Height - 20) / elementos;
+        int indice = (e.Y - 5) / altoElemento; // Calcular el índice del elemento clicado
+
+        if (indice &gt;= 0 &amp;&amp; indice &lt; elementos)
+        {
+            // Ajustar el valor según el índice
+            Valor = min + (indice + 1) * (max - min) / elementos;
+        }
+    }
+}
+</code></pre><hr id="18fc1017-243e-81a2-bc09-c6d4b3cda059"/><h3 id="18fc1017-243e-81e8-897a-cece8c45ee37" class=""><strong>Explicación de las Funcionalidades Nuevas</strong></h3><ol type="1" id="18fc1017-243e-8141-a6d5-c90bdffae6c8" class="numbered-list" start="1"><li><strong>Evento </strong><code><strong>CambioValor</strong></code><strong>:</strong><ul id="18fc1017-243e-81a8-b3f9-cddee6787c9e" class="bulleted-list"><li style="list-style-type:disc">Se lanza cada vez que el valor cambia, ya sea por interacción del usuario o mediante código.</li></ul><ul id="18fc1017-243e-81a6-9046-f87c0e3f8562" class="bulleted-list"><li style="list-style-type:disc">Este evento permite que otros componentes en la aplicación reaccionen automáticamente al cambio de valor.</li></ul></li></ol><ol type="1" id="18fc1017-243e-814f-9555-ce0c3fea1791" class="numbered-list" start="2"><li><strong>Propiedad </strong><code><strong>Incremento</strong></code><strong>:</strong><ul id="18fc1017-243e-81fd-8d2b-e6b538068433" class="bulleted-list"><li style="list-style-type:disc">Define el tamaño del paso para aumentar o disminuir el valor.</li></ul><ul id="18fc1017-243e-8167-a87f-d91cae5b8bd3" class="bulleted-list"><li style="list-style-type:disc">Aunque en este ejemplo no se utiliza explícitamente, se podría combinar con teclas del teclado o controles adicionales.</li></ul></li></ol><ol type="1" id="18fc1017-243e-81a8-b0a2-d21d7b68d75a" class="numbered-list" start="3"><li><strong>Interacción del Ratón:</strong><ul id="18fc1017-243e-81c9-8b13-d36f2bb5ae55" class="bulleted-list"><li style="list-style-type:disc">Al hacer clic en una luz, el control ajusta el valor del potenciómetro proporcionalmente.</li></ul><ul id="18fc1017-243e-8189-abe6-cbe5e1610b99" class="bulleted-list"><li style="list-style-type:disc">Esto permite al usuario interactuar directamente con el componente.</li></ul></li></ol><hr id="18fc1017-243e-81e9-8491-c722c046f84c"/><h3 id="18fc1017-243e-8164-ac34-f530b9b03c1b" class=""><strong>Prueba del Potenciómetro Mejorado</strong></h3><p id="18fc1017-243e-812c-b9ab-da996937721c" class="">Ejemplo de cómo usar este control y manejar su evento <code>CambioValor</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-81bd-9279-e6992445b851" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public partial class Form1 : Form
+{
+    public Form1()
+    {
+        InitializeComponent();
+
+        Potenciometro potenciometro = new Potenciometro
+        {
+            Min = 0,
+            Max = 100,
+            Incremento = 10,
+            Valor = 50,
+            Location = new Point(20, 20)
+        };
+
+        potenciometro.CambioValor += Potenciometro_CambioValor;
+
+        this.Controls.Add(potenciometro);
+    }
+
+    private void Potenciometro_CambioValor(object sender, EventArgs e)
+    {
+        Potenciometro p = sender as Potenciometro;
+        Console.WriteLine($&quot;Nuevo valor: {p.Valor}&quot;);
+    }
+}
+</code></pre><hr id="18fc1017-243e-815f-b447-f5e4c7ac5c09"/><h3 id="18fc1017-243e-813f-9480-da449a5ee1db" class=""><strong> Mejoras</strong></h3><ol type="1" id="18fc1017-243e-8118-a33f-ec62dbed854f" class="numbered-list" start="1"><li><strong>Soporte para teclado:</strong><ul id="18fc1017-243e-8190-aa9b-d94243b895fa" class="bulleted-list"><li style="list-style-type:disc">Ajustar el valor con las teclas de flecha arriba y abajo.</li></ul></li></ol><ol type="1" id="18fc1017-243e-8192-9b13-d2649d702d67" class="numbered-list" start="2"><li><strong>Estilo visual personalizado:</strong><ul id="18fc1017-243e-81cb-8cef-fbba327223a2" class="bulleted-list"><li style="list-style-type:disc">Permitir colores configurables para cada estado.</li></ul></li></ol><ol type="1" id="18fc1017-243e-8150-8b6b-e0acd9c15663" class="numbered-list" start="3"><li><strong>Transiciones suaves:</strong><ul id="18fc1017-243e-81c8-bacd-cfd633910ce6" class="bulleted-list"><li style="list-style-type:disc">Usar animaciones al encender o apagar las luces.</li></ul></li></ol><h3 id="18fc1017-243e-81e0-911f-cd30fd429814" class=""><strong>1. Soporte para el teclado</strong></h3><p id="18fc1017-243e-816a-a682-c520f6335a93" class="">Permitiremos ajustar el valor con las teclas <strong>flecha arriba</strong> y <strong>flecha abajo</strong>, usando la propiedad <code>Incremento</code> para determinar cuánto aumenta o disminuye.</p><h3 id="18fc1017-243e-81de-8b9c-d3474f91e5e0" class="">Implementación:</h3><p id="18fc1017-243e-816e-9239-dec87c42ca0c" class="">Añadimos el manejo del teclado sobrescribiendo el evento <code>OnKeyDown</code>:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-8160-8b8e-f823cc018a2a" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">protected override void OnKeyDown(KeyEventArgs e)
+{
+    base.OnKeyDown(e);
+
+    if (e.KeyCode == Keys.Up)
+    {
+        // Incrementar valor
+        Valor = Math.Min(Valor + Incremento, Max);
+    }
+    else if (e.KeyCode == Keys.Down)
+    {
+        // Decrementar valor
+        Valor = Math.Max(Valor - Incremento, Min);
+    }
+}
+</code></pre><h3 id="18fc1017-243e-816a-8288-d5fe2a9cd850" class="">Detalle:</h3><ul id="18fc1017-243e-81c9-8d56-c995fb0b36db" class="bulleted-list"><li style="list-style-type:disc"><code><strong>Keys.Up</strong></code><strong> y </strong><code><strong>Keys.Down</strong></code><strong>:</strong> Detecta las flechas.</li></ul><ul id="18fc1017-243e-813d-996a-f20b48d5972f" class="bulleted-list"><li style="list-style-type:disc"><code><strong>Math.Min</strong></code><strong> y </strong><code><strong>Math.Max</strong></code><strong>:</strong> Garantizan que el valor permanezca dentro del rango <code>[Min, Max]</code>.</li></ul><p id="18fc1017-243e-8119-988e-e1435cdb88ef" class="">Para asegurarte de que el control reciba los eventos del teclado, configura su propiedad <code>TabStop</code> a <code>true</code> y usa <code>this.Focus()</code> si es necesario.</p><hr id="18fc1017-243e-8122-801c-de861cac8801"/><h3 id="18fc1017-243e-81c5-bbe0-f7413deb1ecd" class=""><strong>2. Estilo visual personalizable</strong></h3><p id="18fc1017-243e-819a-aaed-f91275644997" class="">Agregaremos propiedades para que el usuario pueda personalizar los colores de las luces (apagadas, verdes, amarillas, y rojas).</p><h3 id="18fc1017-243e-8162-8bd3-e562592cab2f" class="">Implementación:</h3><p id="18fc1017-243e-81ef-aa0b-ea9822517a95" class="">Declaramos las propiedades de los colores y las usamos en el dibujado.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-81bb-9889-c4dda0900dea" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">private Color colorApagado = Color.Gray;
+private Color colorVerde = Color.Green;
+private Color colorAmarillo = Color.Yellow;
+private Color colorRojo = Color.Red;
+
+[Description(&quot;Color de las luces apagadas&quot;), DefaultValue(typeof(Color), &quot;Gray&quot;)]
+public Color ColorApagado
+{
+    get { return colorApagado; }
+    set { colorApagado = value; Invalidate(); }
+}
+
+[Description(&quot;Color de las luces verdes&quot;), DefaultValue(typeof(Color), &quot;Green&quot;)]
+public Color ColorVerde
+{
+    get { return colorVerde; }
+    set { colorVerde = value; Invalidate(); }
+}
+
+[Description(&quot;Color de las luces amarillas&quot;), DefaultValue(typeof(Color), &quot;Yellow&quot;)]
+public Color ColorAmarillo
+{
+    get { return colorAmarillo; }
+    set { colorAmarillo = value; Invalidate(); }
+}
+
+[Description(&quot;Color de la luz roja&quot;), DefaultValue(typeof(Color), &quot;Red&quot;)]
+public Color ColorRojo
+{
+    get { return colorRojo; }
+    set { colorRojo = value; Invalidate(); }
+}
+</code></pre><p id="18fc1017-243e-817c-96c2-d8e9198fc5ca" class="">Modificamos el método <code>OnPaint</code> para usar estos colores:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-8102-bd38-e2459bda6a29" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">Brush[] colores = new Brush[]
+{
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado),
+    new SolidBrush(ColorApagado)
+};
+
+for (int i = 0; i &lt; encendidos; i++)
+{
+    if (i &lt; 6) colores[i] = new SolidBrush(ColorVerde);
+    else if (i &lt; 9) colores[i] = new SolidBrush(ColorAmarillo);
+    else colores[i] = new SolidBrush(ColorRojo);
+}
+
+for (int i = 0; i &lt; elementos; i++)
+{
+    g.FillRectangle(colores[i], margen, margen + i * altoElemento, ancho, altoElemento - 2);
+}
+</code></pre><hr id="18fc1017-243e-81c2-9a76-fe70b871e561"/><h3 id="18fc1017-243e-81e4-baf1-f27952057080" class=""><strong>3. Transiciones suaves</strong></h3><p id="18fc1017-243e-81c7-8a6f-d6a616062578" class="">Para mejorar la estética, implementaremos una animación que encienda o apague las luces gradualmente.</p><h3 id="18fc1017-243e-81be-a5b1-c4927332aad4" class="">Implementación:</h3><p id="18fc1017-243e-8121-bdb0-c574d45d04f2" class="">Usaremos un <code>Timer</code> que actualice progresivamente el valor actual hasta alcanzar el objetivo.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-812e-a727-f7d1707dbd89" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">private Timer animacionTimer;
+private int objetivoValor;
+
+public Potenciometro()
+{
+    animacionTimer = new Timer { Interval = 50 }; // Intervalo de la animación
+    animacionTimer.Tick += AnimacionTimer_Tick;
+}
+
+private void AnimacionTimer_Tick(object sender, EventArgs e)
+{
+    if (valor &lt; objetivoValor)
+    {
+        Valor = Math.Min(valor + 1, objetivoValor);
+    }
+    else if (valor &gt; objetivoValor)
+    {
+        Valor = Math.Max(valor - 1, objetivoValor);
+    }
+    else
+    {
+        animacionTimer.Stop(); // Detener animación al llegar al valor objetivo
+    }
+}
+
+public void CambiarValorConAnimacion(int nuevoValor)
+{
+    if (nuevoValor &gt;= Min &amp;&amp; nuevoValor &lt;= Max)
+    {
+        objetivoValor = nuevoValor;
+        animacionTimer.Start();
+    }
+}
+</code></pre><hr id="18fc1017-243e-8156-9cb1-efd4443dc5d0"/><h3 id="18fc1017-243e-8174-b8dc-fc597807dcc5" class=""><strong>Ejemplo de Uso del Potenciómetro Mejorado</strong></h3><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="18fc1017-243e-812b-b0d2-e8bc4258bc31" class="code"><code class="language-C#" style="white-space:pre-wrap;word-break:break-all">public partial class Form1 : Form
+{
+    public Form1()
+    {
+        InitializeComponent();
+
+        Potenciometro potenciometro = new Potenciometro
+        {
+            Min = 0,
+            Max = 100,
+            Valor = 50,
+            Incremento = 5,
+            ColorApagado = Color.DarkGray,
+            ColorVerde = Color.LightGreen,
+            ColorAmarillo = Color.Gold,
+            ColorRojo = Color.DarkRed,
+            Location = new Point(20, 20),
+            Size = new Size(50, 200)
+        };
+
+        potenciometro.CambioValor += Potenciometro_CambioValor;
+
+        this.Controls.Add(potenciometro);
+
+        // Cambiar valor con animación al hacer clic
+        this.MouseClick += (s, e) =&gt;
+        {
+            Random rnd = new Random();
+            potenciometro.CambiarValorConAnimacion(rnd.Next(0, 101));
+        };
+    }
+
+    private void Potenciometro_CambioValor(object sender, EventArgs e)
+    {
+        Potenciometro p = sender as Potenciometro;
+        Console.WriteLine($&quot;Nuevo valor: {p.Valor}&quot;);
+    }
+}
+</code></pre><hr id="18fc1017-243e-818d-8903-d77f52a4301b"/><h3 id="18fc1017-243e-81a9-abfb-eb88915abd58" class=""><strong>Resultado</strong></h3><ol type="1" id="18fc1017-243e-8197-a52c-e5a20550b97e" class="numbered-list" start="1"><li><strong>Teclado:</strong> Las flechas arriba y abajo ajustan el valor del potenciómetro.</li></ol><ol type="1" id="18fc1017-243e-8171-8764-dc9ac9fd0777" class="numbered-list" start="2"><li><strong>Colores personalizados:</strong> Puedes configurar los colores para adaptarlos al diseño de tu aplicación.</li></ol><ol type="1" id="18fc1017-243e-81f9-8225-c09c2d821612" class="numbered-list" start="3"><li><strong>Animación suave:</strong> Los cambios en el valor se ven con una transición fluida.</li></ol></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
